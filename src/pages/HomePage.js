@@ -9,7 +9,7 @@ import { getTransactions } from "../services/backend.js";
 export default function HomePage() {
   const navigate = useNavigate();
   const [transactionsList, setTransactionsList] = useState([]);
-  const [totalValue, setTotalValue] = useState();
+  const [totalValue, setTotalValue] = useState(0);
 
   function logout() {
     localStorage.removeItem("token");
@@ -51,14 +51,14 @@ export default function HomePage() {
 
       <TransactionsContainer>
         <ul>
-          {transactionsList.map((item) => (
+          {transactionsList?.map((item) => (
             <ListItemContainer>
               <div>
-                <span>{item.date}</span>
-                <strong>{item.description}</strong>
+                <span>{item?.date}</span>
+                <strong>{item?.description}</strong>
               </div>
-              <Value color={item.type === "entrada" ? "positivo" : "negativo"}>
-                {item.value.toFixed(2)}
+              <Value color={item?.type === "entrada" ? "positivo" : "negativo"}>
+                {item?.value.toFixed(2)}
               </Value>
             </ListItemContainer>
           ))}
@@ -67,19 +67,21 @@ export default function HomePage() {
         <article>
           <strong>Saldo</strong>
           <Value color={totalValue > 0 ? "positivo" : "negativo"}>
-            {totalValue.toFixed(2)}
+            {totalValue >= 0
+              ? totalValue?.toFixed(2)
+              : totalValue?.toFixed(2).replace("-", "")}
           </Value>
         </article>
       </TransactionsContainer>
 
       <ButtonsContainer>
-        <button>
+        <button onClick={() => navigate("/nova-transacao/entrada")}>
           <AiOutlinePlusCircle />
           <p>
             Nova <br /> entrada
           </p>
         </button>
-        <button>
+        <button onClick={() => navigate("/nova-transacao/saida")}>
           <AiOutlineMinusCircle />
           <p>
             Nova <br />

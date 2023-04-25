@@ -32,3 +32,16 @@ export async function getTransactions(headers) {
     return err.res;
   }
 }
+
+export async function postTransaction(body, type) {
+  try {
+    const token = localStorage.getItem("token");
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    const res = axios.post(`${URL}/transactions/${type}`, body, config);
+    return res;
+  } catch (err) {
+    return err.res;
+  }
+}
