@@ -21,8 +21,8 @@ export default function SignInPage() {
 
     try {
       const res = await login({ email, password });
-      localStorage.setItem("token", res.data);
-      console.log(res.data);
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("name", res.data.name);
       navigate("/home");
     } catch (err) {
       alert(err.response.data);

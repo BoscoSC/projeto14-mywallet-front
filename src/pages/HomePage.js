@@ -45,7 +45,7 @@ export default function HomePage() {
   return (
     <HomeContainer>
       <Header>
-        <h1>Olá, Fulano</h1>
+        <h1>Olá, {localStorage.getItem("name")}</h1>
         <BiExit onClick={logout} />
       </Header>
 
@@ -66,7 +66,7 @@ export default function HomePage() {
 
         <article>
           <strong>Saldo</strong>
-          <Value color={totalValue > 0 ? "positivo" : "negativo"}>
+          <Value color={totalValue >= 0 ? "positivo" : "negativo"}>
             {totalValue >= 0
               ? totalValue?.toFixed(2)
               : totalValue?.toFixed(2).replace("-", "")}
