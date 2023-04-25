@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import MyWalletLogo from "../components/MyWalletLogo";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { login } from "../services/backend.js";
 
 export default function SignInPage() {
@@ -10,11 +10,19 @@ export default function SignInPage() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      navigate("/home");
+    }
+  }, []);
+
   async function signin(event) {
     event.preventDefault();
 
     try {
-      await login({ email, password });
+      const res = await login({ email, password });
+      localStorage.setItem("token", res.data);
+      console.log(res.data);
       navigate("/home");
     } catch (err) {
       alert(err.response.data);

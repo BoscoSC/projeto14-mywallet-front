@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import MyWalletLogo from "../components/MyWalletLogo";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { register } from "../services/backend.js";
 
 export default function SignUpPage() {
@@ -11,6 +11,12 @@ export default function SignUpPage() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      navigate("/home");
+    }
+  }, []);
 
   async function signup(event) {
     event.preventDefault();

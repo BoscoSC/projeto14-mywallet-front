@@ -19,3 +19,16 @@ export async function login(body) {
     return err.res;
   }
 }
+
+export async function getTransactions(headers) {
+  try {
+    const token = localStorage.getItem("token");
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    const res = axios.get(`${URL}/transactions`, config);
+    return res;
+  } catch (err) {
+    return err.res;
+  }
+}

@@ -1,16 +1,27 @@
-import styled from "styled-components"
+import styled from "styled-components";
+
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function TransactionsPage() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/");
+    }
+  }, []);
+
   return (
     <TransactionsContainer>
       <h1>Nova TRANSAÇÃO</h1>
       <form>
-        <input placeholder="Valor" type="text"/>
+        <input placeholder="Valor" type="text" />
         <input placeholder="Descrição" type="text" />
         <button>Salvar TRANSAÇÃO</button>
       </form>
     </TransactionsContainer>
-  )
+  );
 }
 
 const TransactionsContainer = styled.main`
@@ -24,4 +35,4 @@ const TransactionsContainer = styled.main`
     align-self: flex-start;
     margin-bottom: 40px;
   }
-`
+`;
