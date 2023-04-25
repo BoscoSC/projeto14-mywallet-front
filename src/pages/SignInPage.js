@@ -1,22 +1,48 @@
-import styled from "styled-components"
-import { Link } from "react-router-dom"
-import MyWalletLogo from "../components/MyWalletLogo"
+import styled from "styled-components";
+import { Link, useNavigate } from "react-router-dom";
+import MyWalletLogo from "../components/MyWalletLogo";
+
+import { useState } from "react";
+import { login } from "../services/backend.js";
 
 export default function SignInPage() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  async function signin(event) {
+    event.preventDefault();
+
+    try {
+      await login({ email, password });
+      navigate("/home");
+    } catch (err) {
+      alert(err.response.data);
+    }
+  }
   return (
     <SingInContainer>
-      <form>
+      <form onSubmit={signin}>
         <MyWalletLogo />
-        <input placeholder="E-mail" type="email" />
-        <input placeholder="Senha" type="password" autocomplete="new-password" />
+        <input
+          placeholder="E-mail"
+          type="email"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+        />
+        <input
+          placeholder="Senha"
+          type="password"
+          autocomplete="new-password"
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+        />
         <button>Entrar</button>
       </form>
 
-      <Link>
-        Primeira vez? Cadastre-se!
-      </Link>
+      <Link to="/cadastro">Primeira vez? Cadastre-se!</Link>
     </SingInContainer>
-  )
+  );
 }
 
 const SingInContainer = styled.section`
@@ -25,4 +51,4 @@ const SingInContainer = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`
+`;
