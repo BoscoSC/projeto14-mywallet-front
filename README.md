@@ -1,4 +1,8 @@
 ## Sobre
+<p align="center">
+  <img src="https://github.com/BoscoSC/projeto14-mywallet-front/assets/111109969/fc10622a-0c4f-4c46-8de8-cd4c6c66d4a3" alt="Main Page do MyWalley" width="300">
+</p>
+
 Essa é um projeto de aplicação Web para o user ter um controle financeiro através das seguintes features:
 
 - Login
